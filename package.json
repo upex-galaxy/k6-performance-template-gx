@@ -14,7 +14,7 @@
 	"scripts": {
 		"build": "webpack",
 		"k6:login": "k6 login cloud --token $K6_CLOUD_TOKEN",
-		"test:simple": "k6 run ---out cloud webpack/check.test.js",
+		"test:simple": "k6 run --out cloud webpack/check.test.js",
 		"test:perfo": "k6 run --out cloud webpack/performance.test.js"
 	},
 	"devDependencies": {

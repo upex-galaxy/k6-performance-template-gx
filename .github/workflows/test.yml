@@ -21,25 +21,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v3
         with:
             node-version: 16
 
-      - name: Yarn setup
+      - name: 💿 Yarn setup
         uses: DerYeger/yarn-setup-action@master
         with:
             node-version: 16
     
-      - name: Install dependencies and Build
+      - name: 🧬 Install dependencies and Build
         run: |
             yarn
             yarn build
 
-      - name: Checking Variables are set
+      - name: 🔑 Checking k6 variables are set
         run: |
-            echo '---- checking variables ----'
-            echo $K6_CLOUD_TOKEN
-            echo $QA_SERVER
             if [ -z "$K6_CLOUD_TOKEN" ]; then
               echo "K6_CLOUD_TOKEN is not set"
               exit 1
@@ -48,10 +47,10 @@ jobs:
               echo "QA_SERVER is not set"
               exit 1
             fi
+            echo '---- All ENV Variables set! ✅ ----'
 
-      - name: Run local k6 test
+      - name: 📊🧪 Running Performance Test with k6
         uses: k6io/action@v0.1
         with:
           filename: webpack/performance.test.js
-          cloud: true
-          token: ${{ secrets.K6_CLOUD_TOKEN }}
+          flags: K6_CLOUD_TOKEN=$K6_CLOUD_TOKEN --out cloud
