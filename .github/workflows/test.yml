@@ -12,6 +12,7 @@ env:
   TOKEN_URL: ${{ secrets.TOKEN_URL }}
   SCOPE: ${{ secrets.SCOPE }}
   CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
 
 jobs:
   k6-performance-testing:
