@@ -2,24 +2,24 @@
 
 [![Test in QA🧪](https://github.com/upex-galaxy/k6-performance-ts/actions/workflows/test.yml/badge.svg)](https://github.com/upex-galaxy/k6-performance-ts/actions/workflows/test.yml)
 
-# Plantilla para usar TypeScript con k6
+# Peformance Testing con k6 (usando TypeScript)
 </div>
 
 Este repositorio proporciona un proyecto base para comenzar a usar TypeScript en tus scripts de k6.
 
-## Prerrequisitos
+# Precondiciones
 
 - [k6](https://k6.io/docs/getting-started/installation)
 - [NodeJS](https://nodejs.org/en/download/)
 - [Yarn](https://yarnpkg.com/getting-started/install)
 
-## Instalación
+# Instalación y SetUp
 
-**Creando un proyecto desde la plantilla `k6-performance-ts`**
+### **Creando un proyecto desde la plantilla `k6-performance-ts`**
 
 Para generar un proyecto TypeScript que incluya las dependencias y la configuración inicial, navega a la página [template-typescript](https://github.com/k6io/template-typescript) y haz clic en **Use this template**.
 
-**Instalar dependencias**
+### **Instalar dependencias**
 
 Clona el repositorio generado en tu máquina local, muévete a la carpeta raíz del proyecto e instala las dependencias definidas en [`package.json`](./package.json)
 
@@ -41,7 +41,7 @@ nvm use
 *(si no tienes instalado nvm, Qué esperas!? instalado y vuelve a intentar, si no tienes la versión de Node del repo debes instalarlo con nvm install)*
 
 
-## Ejecutando la prueba
+# Ejecución de Pruebas de k6
 
 Para ejecutar una prueba escrita en TypeScript, primero tenemos que transpilar el código TypeScript a JavaScript y empaquetar el proyecto
 
@@ -60,7 +60,7 @@ k6 run webpack/check.test.ts
 > [!NOTE]
 > ten en cuenta que el archivo `performance.test.ts` es un archivo de prueba real usando credenciales de una proyecto serio, por lo que no podrás ejecutarlo sin las variables declaradas. Este archivo es solo para demostración REAL de un archivo usando las variables de entorno de k6.
 
-## Reporte de Pruebas con Grafana
+# Reporte de Pruebas con Grafana
 Se puede ejecutar las pruebas apuntando a tu cuenta Grafana!
 - Sigue las instrucciones paso a paso de la Documentación ofical:
     - [Grafana Cloud k6 - Getting Started](https://grafana.com/docs/grafana-cloud/k6/get-started/run-cloud-tests-from-the-cli/#run-locally-and-stream-to-the-cloud)
@@ -69,11 +69,30 @@ Se puede ejecutar las pruebas apuntando a tu cuenta Grafana!
     - `yarn test:check`
     - Recuerda primero establecer tu variable de entorno con el Token de tu cuenta Grafana! usando `export K6_CLOUD_TOKEN=ESCRIBE_AQUI_TU_TOKEN`
 
-## Ejecución en CI con Grafana
-Para que funcione tu Pipeline de CI de GitHub Actions con Grafana debes usar este action:
-- [GitHub Action k6-load-test](https://github.com/marketplace/actions/k6-load-test)
+# Ejecución de Pruebas en CI (Local o con Grafana)
+### Para que funcione tu Pipeline de CI de GitHub Actions con Grafana debes:
+- Primero, tener tu variable de env "K6_CLOUD_TOKEN" declarada en el archivo yml con tu secret Token de Grafana.
+- En el archivo yml, ya está el paso más importante, que es la instalación de k6 por terminal de bash.
+- Al tener k6 instalada localmente en el CI, se puede ejecutar scripts con `./k6`
+    - Luego de `./k6 run --out cloud` escribe la ruta de tu archivo ejecutable de webpack.
+    - Puedes usar el presente yml como ejemplo de su uso. 
 
-## Escribiendo tus propias pruebas
+### Si NO quieres usar tu cuenta de Grafana para importar los Resultados de Pruebas ed k6:
+- Necesitarás entonces habilitar el código comentado del archivo yml el cual usa una dependencia de github action para ejecutar muy fácil tu archivo ejecutable de webpack.
+- Ejemplo:
+    ```
+        - name: 📊🧪 Running Performance Test with k6 (LOCALLY)
+        uses: grafana/k6-action@v0.3.1
+        with:
+            filename: webpack/performance.test.js
+    ```
+- Para conocer más información sobre esta dependencia, visita:
+    - [GitHub Action k6-load-test](https://github.com/marketplace/actions/k6-load-test)
+
+> [!NOTE]
+> La razón por la que NO uso el Action mencionado (k6-load-test) para reportar pruebas k6 en el Cloud de Grafana, es porque hay un problema actual con la dependencia para leer las variables de entornos definidas para cloud. 
+
+# Escribiendo tus propias pruebas
 
 Reglas para escribir pruebas:
 - El código de prueba se encuentra en la carpeta `tests`
@@ -87,3 +106,6 @@ Por defecto, k6 solo puede ejecutar código JavaScript ES5.1. Para usar TypeScri
 Este proyecto utiliza `Babel` y `Webpack` para empaquetar los diferentes archivos, utilizando la configuración del archivo [`webpack.config.js`](./webpack.config.js).
 
 Si quieres aprender más, consulta [Bundling node modules in k6](https://k6.io/docs/using-k6/modules#bundling-node-modules).
+
+
+## 📈 **Happy Pefo!**
