@@ -13,9 +13,16 @@ export function setup() {
 
 //* Test Config
 export const options: Options = {
-	// will perform 1 user per 1 second
 	vus: 10,
 	duration: '10s',
+	ext: {
+		loadimpact: {
+			// Project: UPEX-PERFORMANCE-DEMO
+			projectID: 3673972,
+			// Test runs with the same name groups test runs together.
+			name: 'Test (15/12/2023-00:40:26)',
+		},
+	},
 };
 
 //* Performance Test:
