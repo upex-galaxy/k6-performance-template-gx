@@ -54,14 +54,30 @@ Este comando crea los archivos finales de prueba en la carpeta `./webpack`.
 Una vez hecho esto, podemos ejecutar nuestro script de la misma manera que usualmente lo hacemos, por ejemplo:
 
 ```bash
-k6 run webpack/performance.test.js
+k6 run webpack/check.test.ts
 ```
+
+> [!NOTE]
+> ten en cuenta que el archivo `performance.test.ts` es un archivo de prueba real usando credenciales de una proyecto serio, por lo que no podrás ejecutarlo sin las variables declaradas. Este archivo es solo para demostración REAL de un archivo usando las variables de entorno de k6.
+
+## Reporte de Pruebas con Grafana
+Se puede ejecutar las pruebas apuntando a tu cuenta Grafana!
+- Sigue las instrucciones paso a paso de la Documentación ofical:
+    - [Grafana Cloud k6 - Getting Started](https://grafana.com/docs/grafana-cloud/k6/get-started/run-cloud-tests-from-the-cli/#run-locally-and-stream-to-the-cloud)
+- Hay unos scripts configurados de yarn que tenemos en este repo para iniciar sesión localmente y correr una prueba y reportarla a tu usuario de Grafana:
+    - `yarn k6:login`
+    - `yarn test:check`
+    - Recuerda primero establecer tu variable de entorno con el Token de tu cuenta Grafana! usando `export K6_CLOUD_TOKEN=ESCRIBE_AQUI_TU_TOKEN`
+
+## Ejecución en CI con Grafana
+Para que funcione tu Pipeline de CI de GitHub Actions con Grafana debes usar este action:
+- [GitHub Action k6-load-test](https://github.com/marketplace/actions/k6-load-test)
 
 ## Escribiendo tus propias pruebas
 
 Reglas para escribir pruebas:
 - El código de prueba se encuentra en la carpeta `tests`
-- Los puntos de entrada para las pruebas deben tener la extensión "_test.ts_" en el nombre para distinguirlos de los archivos auxiliares. Puedes cambiar la entrada [aquí](./webpack.config.js#L8). 
+- Los puntos de entrada para las pruebas deben tener el sufijo "_test.ts_" en el nombre de archivo, para distinguirlos de los archivos auxiliares. Puedes cambiar la entrada en el archivo `webpack.config.js`. 
 - Si se requieren archivos estáticos, agrégalos a la carpeta `./assets`. Su contenido se copia a la carpeta de destino (`webpack`) junto con los scripts compilados.
 
 ### Transpilación y Empaquetamiento

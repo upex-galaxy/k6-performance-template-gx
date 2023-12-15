@@ -50,7 +50,7 @@ jobs:
             echo '---- All ENV Variables set! ✅ ----'
 
       - name: 📊🧪 Running Performance Test with k6
-        uses: k6io/action@v0.1
+        uses: grafana/k6-action@v0.3.1
         with:
           filename: webpack/performance.test.js
-          # flags: K6_CLOUD_TOKEN=$K6_CLOUD_TOKEN --out cloud
+          flags: --out cloud
