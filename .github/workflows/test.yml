@@ -53,4 +53,4 @@ jobs:
         uses: k6io/action@v0.1
         with:
           filename: webpack/performance.test.js
-          flags: K6_CLOUD_TOKEN=$K6_CLOUD_TOKEN --out cloud
+          # flags: K6_CLOUD_TOKEN=$K6_CLOUD_TOKEN --out cloud
