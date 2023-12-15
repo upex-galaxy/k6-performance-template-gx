@@ -1,15 +1,22 @@
 on:
   push:
     branches:
-    - master
+    - main
   pull_request:
     branches:
-    - master
+    - main
 
 jobs:
   k6-performance-testing:
-    name: Transpile, bundle and run
+    name: K6 Performance Test
     runs-on: ubuntu-latest
+    env:
+      QA_SERVER: ${{ secrets.QA_SERVER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      TOKEN_URL: ${{ secrets.TOKEN_URL }}
+      SCOPE: ${{ secrets.SCOPE }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
 
     steps:
       - uses: actions/checkout@v3
@@ -30,4 +37,6 @@ jobs:
       - name: Run local k6 test
         uses: grafana/k6-action@v0.2.0
         with:
-          filename: webpack/check.test.js
+          filename: webpack/performance.test.js
+          cloud: true
+          token: ${{ secrets.K6_CLOUD_TOKEN }}
