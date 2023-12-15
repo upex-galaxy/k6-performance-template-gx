@@ -35,6 +35,8 @@ jobs:
       - name: 📈 Installing k6
         run: |
           curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
+          echo "---- k6 installation done ----" 
+          k6
 
       - name: 🧬 Install dependencies and Build
         run: |
@@ -45,8 +47,8 @@ jobs:
       #** TESTS with Grafana output **
       - name: 📊🧪 Running Performance Test with k6 (GRAFANA)
         run: |
-          yarn test:perfo
-      # this script will run: "k6 run --out cloud webpack/performance.test.js"
+          ./k6 run --out cloud webpack/performance.test.js
+      # this script will run the test.js created by webpack and send the results to Grafana
 
       #** TESTS with local output **
       # - name: 📊🧪 Running Performance Test with k6 (LOCALLY)
