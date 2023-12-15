@@ -53,4 +53,6 @@ jobs:
         uses: grafana/k6-action@v0.3.1
         with:
           filename: webpack/performance.test.js
-          flags: --out cloud
+          flags: --out clou
+        env:
+          K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
