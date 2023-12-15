@@ -35,7 +35,7 @@ jobs:
             yarn build
 
       - name: Run local k6 test
-        uses: grafana/k6-action@v0.2.0
+        uses: k6io/action@v0.1
         with:
           filename: webpack/performance.test.js
           cloud: true
