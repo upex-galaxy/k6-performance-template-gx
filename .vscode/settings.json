@@ -1,0 +1,24 @@
+{
+	"workbench.settings.editor": "json",
+	"workbench.colorTheme": "GitHub Dark Dimmed",
+	"workbench.iconTheme": "vscode-icons",
+	"cSpell.language": "en,es",
+	"terminal.integrated.defaultProfile.windows": "Git Bash",
+	"editor.quickSuggestions": {
+		"comments": false,
+		"strings": true,
+		"other": true
+	},
+	"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+	"editor.formatOnType": true,
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
+	"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+	"editor.tabCompletion": "on",
+	"editor.lineHeight": 20,
+	"editor.cursorBlinking": "expand",
+	"editor.formatOnSaveMode": "file", // required to format on save
+	"files.autoSave": "onFocusChange", // optional but recommended
+	"vs-code-prettier-eslint.prettierLast": true, // set as "true" to run 'prettier' last not first
+	"git.enableSmartCommit": true
+}
