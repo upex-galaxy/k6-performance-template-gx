@@ -32,27 +32,24 @@ jobs:
         with:
             node-version: 16
     
+      - name: 📈 Installing k6
+        run: |
+          curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
+
       - name: 🧬 Install dependencies and Build
         run: |
             yarn
             yarn build
+      # this script will run webpack and create the test.js to be executed by k6
 
-      - name: 🔑 Checking k6 variables are set
+      #** TESTS with Grafana output **
+      - name: 📊🧪 Running Performance Test with k6 (GRAFANA)
         run: |
-            if [ -z "$K6_CLOUD_TOKEN" ]; then
-              echo "K6_CLOUD_TOKEN is not set"
-              exit 1
-            fi
-            if [ -z "$QA_SERVER" ]; then
-              echo "QA_SERVER is not set"
-              exit 1
-            fi
-            echo '---- All ENV Variables set! ✅ ----'
+          yarn test:perfo
+      # this script will run: "k6 run --out cloud webpack/performance.test.js"
 
-      - name: 📊🧪 Running Performance Test with k6
-        uses: grafana/k6-action@v0.3.1
-        with:
-          filename: webpack/performance.test.js
-          flags: --out cloud
-        env:
-          K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
+      #** TESTS with local output **
+      # - name: 📊🧪 Running Performance Test with k6 (LOCALLY)
+      #   uses: grafana/k6-action@v0.3.1
+      #   with:
+      #     filename: webpack/performance.test.js
